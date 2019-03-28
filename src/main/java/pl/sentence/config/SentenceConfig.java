@@ -39,7 +39,11 @@ public class SentenceConfig {
         return new StringJoiner(", ", this.getClass().getSimpleName() + "{", "}").
                 add("formatOut= " + formatOut).
                 add("languageConfig" + languageConfig.getLocale()).
-                add("eolCsv=\\" + eolCsv).
-                add("eolXml=\\" + eolXml).toString();
+                add("eolCsv=" + replace(eolCsv)).
+                add("eolXml=" + replace(eolXml)).toString();
+    }
+
+    private String replace(String str) {
+        return str.replaceAll("\r", "CR").replaceAll("\n", "LF");
     }
 }

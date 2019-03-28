@@ -45,11 +45,6 @@ class SentenceConverter {
             return numberOfWords;
         }
 
-        if (entireStr.length() < 50 && !isLast) {
-            restOfLine = entireStr;
-            return numberOfWords;
-        }
-
         splitToSentence(entireStr);
 
         if (isLast && !restOfLine.isEmpty()) {
@@ -101,8 +96,8 @@ class SentenceConverter {
     }
 
     private List<String> convertStringToWords(String sentenceStr) {
-        sentenceStr = sentenceStr.trim().replaceAll("[.!?]$", "").replaceAll("[(){}]", "");
-        String[] words = sentenceStr.split("[\\s,(\\s-\\s):;]+");
+        sentenceStr = sentenceStr.trim().replaceAll("[.!?]$", "").replaceAll("[()\\[\\]{\"]", "");
+        String[] words = sentenceStr.split("(\\s-\\s)|([\\s,:;])+");
         return Arrays.asList(words);
     }
 

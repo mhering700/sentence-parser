@@ -17,38 +17,40 @@ class Main {
 
     public static void main(String[] args) {
         logger.info("Starting the program ...");
-        SentenceConfig sentenceConfig = choseOutputType(getParam(args));
 
         try (InputStream in = System.in;
              OutputStream out = System.out) {
+            SentenceConfig sentenceConfig = choseOutputType(getParam(args));
             SentenceProcessor sentenceProcessor = new SentenceProcessor(in, out, sentenceConfig);
             sentenceProcessor.process();
-            logger.info("The program was successful");
+            logger.info("The program ended with successful\n\n");
         } catch (SentenceParserException | IOException e) {
             logger.error(e.getMessage());
-            logger.info("The program ended in failure");
+            logger.info("The program ended with failure!!!\n\n\n");
         }
     }
 
-    private static SentenceConfig choseOutputType(String type) {
+    private static SentenceConfig choseOutputType(String type) throws SentenceParserException {
         SentenceConfig sentenceConfig = new SentenceConfig();
         sentenceConfig.setLanguageConfig(LanguageConfig.US);
 
         switch (type) {
             case "csv":
                 sentenceConfig.setFormatOut(FormatOut.CSV);
-                logger.info("The record was selected in csv format");
+                logger.info("CSV data format was selected");
                 break;
             case "xml":
                 sentenceConfig.setFormatOut(FormatOut.XML);
-                logger.info("The record was selected in xml pretty format");
+                logger.info("XML data format was selected");
                 break;
             case "xmlflat":
                 sentenceConfig.setFormatOut(FormatOut.XML_FLAT);
-                logger.info("The record was selected in xml flat format");
+                logger.info("XML - flat data format was selected");
                 break;
             default:
-                logger.error("missing or wrong parameter");
+                String errorMessage = "missing or wrong parameter, expected:  -csv,  -xml, -xmlflat";
+                System.err.println(errorMessage);
+                throw new SentenceParserException(errorMessage);
         }
         return sentenceConfig;
     }

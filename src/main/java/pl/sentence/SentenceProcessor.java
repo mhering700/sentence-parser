@@ -79,10 +79,12 @@ public class SentenceProcessor {
     private int getSentenceConverter(BufferedReader br, SentenceWriter saveSentence) throws IOException, JAXBException, XMLStreamException {
         SentenceConverter sentenceConverter = new SentenceConverter(saveSentence, config);
         String line;
+        int lineNumber = 0;
         while ((line = br.readLine()) != null) {
             sentenceConverter.convertLineToSentence(line);
+            lineNumber++;
         }
-
+        logger.info("{} lines have been processed",lineNumber);
         return sentenceConverter.convertLineToSentence(null);
     }
 
@@ -93,7 +95,7 @@ public class SentenceProcessor {
         xof.setProperty("escapeCharacters", false);
         XMLStreamWriter xsw = null;
         try (BufferedReader br = new BufferedReader(reader)) {
-            xsw = xof.createXMLStreamWriter(outputStream, "UTF-8");
+            xsw = xof.createXMLStreamWriter(outputStream);
             if (XML.equals(formatOutput)) {
                 xsw = new IndentingXMLStreamWriter(xsw);
             }

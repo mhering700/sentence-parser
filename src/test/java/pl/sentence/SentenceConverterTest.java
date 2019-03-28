@@ -34,8 +34,8 @@ public class SentenceConverterTest {
         logger.info("should convert one line to two sentences for csv");
         //given
         config.setFormatOut(CSV);
-        String oneLine = "Mr. and () Ms. Smith you’d ,  met Dr. Jekyll ,, outside. What the \n shouted was, He, he ";
-        List<String> wordsList1 = Arrays.asList("and", "Dr.", "Jekyll", "met", "Mr.", "Ms.", "outside", "Smith", "you'd");
+        String oneLine = "Mr. and () Ms. Smith you’d ,  met Dr. Jekyll ,, long-living . What the \n shouted was, He, he ";
+        List<String> wordsList1 = Arrays.asList("and", "Dr.", "Jekyll", "long-living", "met", "Mr.", "Ms.", "Smith", "you'd");
         List<String> wordsList2 = Arrays.asList("he", "He", "shouted", "the", "was", "What");
         List<Sentence> expectedListOfSentences = new ArrayList<>();
         expectedListOfSentences.add(new Sentence(wordsList1, 1));
@@ -57,7 +57,7 @@ public class SentenceConverterTest {
         logger.info("should convert two line to three sentences for csv");
         //given
         config.setFormatOut(CSV);
-        String firstLine = "Mr. and () Ms. Smith ,  met Dr. Jekyll ,, outside. What the \n he shouted was";
+        String firstLine = "Mr. and () Ms. Smith ,  (met) Dr. Jekyll ,, outside. What the \n he shouted - was";
         String secondLine = "shocking:  停在那儿, 你这肮脏的掠夺者! I couldn't understand a word,perhaps because Chinese \n" +
                 " isn't my mother tongue.";
         List<String> wordsList1 = Arrays.asList("and", "Dr.", "Jekyll", "met", "Mr.", "Ms.", "outside", "Smith");
@@ -86,7 +86,8 @@ public class SentenceConverterTest {
         //given
         config.setFormatOut(XML);
         String firstLine = "Mr. and () Ms. Smith ,  met Dr. Jekyll ,, outside. What the \n he shouted was";
-        String secondLine = "shocking:  停在那儿, 你这肮脏的掠夺者! I couldn't understand a word, you’d perhaps because Chinese \n" +
+        String secondLine = "shocking:  停在那儿, 你这肮脏的掠夺者! I couldn't \"understand\" a word, you’d perhaps because " +
+                "Chinese \n" +
                 " isn't my mother tongue.";
         List<String> wordsList1 = Arrays.asList("and", "Dr.", "Jekyll", "met", "Mr.", "Ms.", "outside", "Smith");
         List<String> wordsList2 = Arrays.asList("he", "shocking", "shouted", "the", "was", "What", "你这肮脏的掠夺者", "停在那儿");
