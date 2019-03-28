@@ -20,8 +20,7 @@ public class Sentence {
     @XmlTransient
     private String toString;
 
-    public Sentence() {
-
+    private Sentence() {
     }
 
     public Sentence(List<String> words, int id) {
