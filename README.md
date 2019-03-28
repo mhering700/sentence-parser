@@ -10,3 +10,4 @@ java -jar -Dfile.encoding=UTF-8 sentence-parser-1.0-SNAPSHOT-jar-with-dependenci
     -xmlflat :xml - flat format of xml sentence after sentence
  fileIn - file with data to convert
  
+ The logs from the program's operation are saved to the debug.log file.
